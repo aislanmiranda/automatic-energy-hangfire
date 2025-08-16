@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.5.0" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.8.18" />
+    <PackageReference Include="Hangfire.PostgreSql" Version="1.20.12" />
+    <PackageReference Include="AspNetCore.Scalar" Version="1.1.8" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.2.7" />
+    <PackageReference Include="MQTTnet" Version="4.1.0.247" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Queue\" />
+    <None Remove="Dto\" />
+    <None Remove="Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Queue\" />
+    <Folder Include="Dto\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+</Project>
