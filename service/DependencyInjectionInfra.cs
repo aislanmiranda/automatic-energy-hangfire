@@ -1,7 +1,7 @@
-﻿using System;
-using Hangfire;
+﻿using Hangfire;
 using Hangfire.PostgreSql;
-using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using service.Repository.Context;
 
 namespace service
 {
@@ -19,12 +19,15 @@ namespace service
             string connectionString = $"Host={HOST};Port={PORT};Database={DB};Username={USER};Password={PASS};Pooling=true;";
 
             #if DEBUG
-            connectionString = configuration.GetConnectionString("DefaultConnection")!;
+            //connectionString = configuration.GetConnectionString("DefaultConnection")!;
             #endif
-            Console.WriteLine("Connection string: " + connectionString);
+
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseNpgsql(connectionString));
 
             services.AddHangfire(config =>
                 config?.UsePostgreSqlStorage(connectionString));
+
         }
     }
 }

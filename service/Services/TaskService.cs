@@ -1,4 +1,5 @@
 ﻿using Hangfire;
+using Quartz;
 using service.Dto;
 using Service.Dto;
 
@@ -7,9 +8,9 @@ namespace service.Job;
 public class TaskService : ITaskService
 {
     private const string TIMEZONE_ID = "E. South America Standard Time";
-
+    
     [Obsolete]
-    public Result<List<TaskRequest>> CreateTask(List<TaskRequest> tasks)
+    public Result<List<TaskRequest>> CreateTask(List<TaskRequest> tasks, CancellationToken cancellationToken)
     {
         try
         { 
@@ -18,9 +19,13 @@ public class TaskService : ITaskService
                 RecurringJob.AddOrUpdate<HangFireJobService>(
                     task.TaskJobId,
                     (job) => job.SendMessageToQueue(new RequestJob {
-                        Message = new RequestJobData { Action = task.Action, Port = task.Port },
+                        Message = new RequestJobData
+                        {
+                            Action = task.Action,
+                            Port = task.Port
+                        },
                         Queue = task.Queue
-                    }),
+                    }, cancellationToken),
                     $"{task.Expression}",
                     TimeZoneInfo.FindSystemTimeZoneById(TIMEZONE_ID)
                 );
@@ -34,12 +39,12 @@ public class TaskService : ITaskService
         }
     }
 
-    public Result<string> OnOffTask(RequestJob request)
+    public Result<string> OnOffTask(RequestJob request, CancellationToken cancellationToken)
     {
         try
         {
             string MESSAGE_RESULT = $"Task {request.Message?.Action.ToUpper()} criada com sucesso.";
-            BackgroundJob.Enqueue<HangFireJobService>(job => job.SendMessageToQueue(request));
+            BackgroundJob.Enqueue<HangFireJobService>(job => job.SendMessageToQueue(request, cancellationToken));
         
             return Result<string>.Ok(MESSAGE_RESULT);
         }

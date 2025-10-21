@@ -26,9 +26,10 @@ public class TaskController : ControllerBase
     }
 
     [HttpPost("create")]
-    public IActionResult CreateTask([FromBody] List<TaskRequest> tasks)
+    public IActionResult CreateTask([FromBody] List<TaskRequest> tasks, CancellationToken cancellationToken)
     {
-        var result = _taskService.CreateTask(tasks);
+        //var result = _taskService.CreateTask(tasks, cancellationToken);
+        var result = _taskService.CreateTaskNewAsync(tasks);
 
         if (!result.Success)
             return StatusCode(result.StatusCode, new { error = result.Error });
@@ -37,9 +38,9 @@ public class TaskController : ControllerBase
     }
 
     [HttpPost("onoff")]
-    public IActionResult OnTask(RequestJob request)
+    public IActionResult OnTask(RequestJob request, CancellationToken cancellationToken)
     {
-        var result = _taskService.OnOffTask(request);
+        var result = _taskService.OnOffTask(request, cancellationToken);
 
         if (!result.Success)
             return StatusCode(result.StatusCode, new { error = result.Error });

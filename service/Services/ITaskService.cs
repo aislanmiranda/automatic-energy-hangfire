@@ -5,7 +5,7 @@ namespace service.Job;
 
 public interface ITaskService
 {
-    Result<List<TaskRequest>> CreateTask(List<TaskRequest> tasks);
-    Result<string> OnOffTask(RequestJob request);
+    Result<List<TaskRequest>> CreateTask(List<TaskRequest> tasks, CancellationToken cancellationToken);
+    Result<string> OnOffTask(RequestJob request, CancellationToken cancellationToken);
     Result<string> DeleteTask(string recurringJobId);
 }
