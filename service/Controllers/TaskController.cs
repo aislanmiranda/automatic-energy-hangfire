@@ -28,35 +28,34 @@ public class TaskController : ControllerBase
     [HttpPost("create")]
     public IActionResult CreateTask([FromBody] List<TaskRequest> tasks, CancellationToken cancellationToken)
     {
-        //var result = _taskService.CreateTask(tasks, cancellationToken);
-        var result = _taskService.CreateTaskNewAsync(tasks);
+        var result = _taskService.CreateTaskNewAsync(tasks, cancellationToken);
 
-        if (!result.Success)
-            return StatusCode(result.StatusCode, new { error = result.Error });
+        if (!result.Result.Success)
+            return StatusCode(result.Result.StatusCode, new { error = result.Result.Error });
 
-        return StatusCode(result.StatusCode, new { data = result.Data });
+        return StatusCode(result.Result.StatusCode, new { data = result.Result.Data });
     }
 
     [HttpPost("onoff")]
-    public IActionResult OnTask(RequestJob request, CancellationToken cancellationToken)
+    public IActionResult OnTask(TaskRequest request, CancellationToken cancellationToken)
     {
-        var result = _taskService.OnOffTask(request, cancellationToken);
+        var response = _taskService.OnOffTaskAsync(request, cancellationToken);
 
-        if (!result.Success)
-            return StatusCode(result.StatusCode, new { error = result.Error });
+        if (!response.Result.Success)
+            return StatusCode(response.Result.StatusCode, new { error = response.Result.Error });
 
-        return StatusCode(result.StatusCode, new { data = result.Data });
+        return StatusCode(response.Result.StatusCode, new { data = response.Result.Data });
     }
 
     [HttpDelete("delete")]
     public IActionResult DeleteTask([FromQuery] string recurringJobId)
     {
-        var result = _taskService.DeleteTask(recurringJobId);
+        var response = _taskService.DeleteTaskAsync(recurringJobId);
 
-        if (!result.Success)
-            return StatusCode(result.StatusCode, new { error = result.Error });
+        if (!response.Result.Success)
+            return StatusCode(response.Result.StatusCode, new { error = response.Result.Error });
 
-        return StatusCode(result.StatusCode, new { data = result.Data });
+        return StatusCode(response.Result.StatusCode, new { data = response.Result.Data });
     }
 }
 

@@ -2,9 +2,6 @@
 using Hangfire;
 using Scalar.AspNetCore;
 using service;
-using service.Job;
-using service.Queue;
-using service.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,14 +10,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddInfrastructure(builder.Configuration);
-
-builder.Services.AddHangfireServer();
-builder.Services.AddSingleton<IRabbitMQService, RabbitMQService>();
-builder.Services.AddTransient<ITaskService, TaskService>();
-builder.Services.AddTransient<IEquipamentRepository, EquipamentRepository>();
-builder.Services.AddTransient<IMonitoringRepository, MonitoringRepository>();
-builder.Services.AddTransient<ITaskRepository, TaskRepository>();
-builder.Services.AddTransient<HangFireJobService>();
 
 var corsPolicyName = "AllowOrigins";
 
