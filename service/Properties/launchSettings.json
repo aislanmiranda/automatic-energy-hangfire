@@ -13,15 +13,15 @@
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "http://localhost:5099",
+      "applicationUrl": "http://localhost:8000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "DBHOST": "44.223.65.146",
+        "DBHOST": "13.217.195.225",
         "DBPORT": "5432",
         "DBNAME": "aes",
         "DBUSER": "automatic",
         "DBPASS": "jiBjHLoz2HzdQltOlkjC",
-        "RBHOST": "34.228.146.217",
+        "RBHOST": "54.161.10.119",
         "RBUSER": "automatic",
         "RBPASS": "{R4qgSryBycagWfK*-h#"
       },

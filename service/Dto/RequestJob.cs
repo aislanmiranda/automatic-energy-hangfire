@@ -4,6 +4,7 @@
 	{
 		public RequestJobData? Message { get; set; }
 		public string Queue { get; set; } = string.Empty;
+        public Guid EquipamentId { get; set; }
     }
 
     public class RequestJobData

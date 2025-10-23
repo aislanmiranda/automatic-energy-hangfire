@@ -16,16 +16,34 @@
     <PackageReference Include="AspNetCore.Scalar" Version="1.1.8" />
     <PackageReference Include="Scalar.AspNetCore" Version="2.2.7" />
     <PackageReference Include="MQTTnet" Version="4.1.0.247" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.10" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+    <PackageReference Include="Quartz" Version="3.15.0" />
+    <PackageReference Include="Quartz.Serialization.Json" Version="3.15.0" />
+    <PackageReference Include="Quartz.Extensions.Hosting" Version="3.15.0" />
+    <PackageReference Include="Quartz.Plugins.RecentHistory" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Queue\" />
     <None Remove="Dto\" />
     <None Remove="Services\" />
+    <None Remove="Repository\" />
+    <None Remove="Repository\Context\" />
+    <None Remove="Models\" />
+    <None Remove="Repository\Configs\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Queue\" />
     <Folder Include="Dto\" />
     <Folder Include="Services\" />
+    <Folder Include="Repository\" />
+    <Folder Include="Repository\Context\" />
+    <Folder Include="Models\" />
+    <Folder Include="Repository\Configs\" />
   </ItemGroup>
 </Project>

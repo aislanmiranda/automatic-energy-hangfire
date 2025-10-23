@@ -7,4 +7,5 @@ public class TaskRequest
     public int Port { get; set; }
     public string Expression { get; set; } = string.Empty;
     public string TaskJobId { get; set; } = string.Empty;
+    public Guid EquipamentId { get; set; }
 }
