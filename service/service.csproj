@@ -11,11 +11,9 @@
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
     <PackageReference Include="RabbitMQ.Client" Version="6.5.0" />
-    <PackageReference Include="Hangfire.AspNetCore" Version="1.8.18" />
-    <PackageReference Include="Hangfire.PostgreSql" Version="1.20.12" />
     <PackageReference Include="AspNetCore.Scalar" Version="1.1.8" />
     <PackageReference Include="Scalar.AspNetCore" Version="2.2.7" />
-    <PackageReference Include="MQTTnet" Version="4.1.0.247" />
+    <PackageReference Include="MQTTnet" Version="5.0.1.1416" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
@@ -26,6 +24,8 @@
     <PackageReference Include="Quartz.Serialization.Json" Version="3.15.0" />
     <PackageReference Include="Quartz.Extensions.Hosting" Version="3.15.0" />
     <PackageReference Include="Quartz.Plugins.RecentHistory" Version="1.0.3" />
+    <PackageReference Include="Refit" Version="8.0.0" />
+    <PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +36,7 @@
     <None Remove="Repository\Context\" />
     <None Remove="Models\" />
     <None Remove="Repository\Configs\" />
+    <None Remove="Provider\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Queue\" />
@@ -45,5 +46,6 @@
     <Folder Include="Repository\Context\" />
     <Folder Include="Models\" />
     <Folder Include="Repository\Configs\" />
+    <Folder Include="Provider\" />
   </ItemGroup>
 </Project>

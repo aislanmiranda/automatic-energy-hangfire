@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using service.Models;
 using service.Repository.Context;
 
@@ -12,11 +11,11 @@ public class MonitoringRepository : IMonitoringRepository
     public MonitoringRepository(AppDbContext context)
         => _context = context;
 
-    public async Task<Monitoring> InsertAsync(Monitoring monitor, CancellationToken cancellationToken)
+    public async Task<Monitoring> InsertAsync(Monitoring monitor)
     {
         _context.Set<Monitoring>().Add(monitor);
 
-        var save = await _context.SaveChangesAsync(cancellationToken);
+        var save = await _context.SaveChangesAsync();
 
         var existingEntity = await _context.Set<Monitoring>()
             .FirstOrDefaultAsync(e => e.Id == monitor.Id);

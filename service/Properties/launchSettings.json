@@ -23,7 +23,9 @@
         "DBPASS": "jiBjHLoz2HzdQltOlkjC",
         "RBHOST": "54.161.10.119",
         "RBUSER": "automatic",
-        "RBPASS": "{R4qgSryBycagWfK*-h#"
+        "RBPASS": "{R4qgSryBycagWfK*-h#",
+        "MANAGERHOST": "localhost:7000",
+        "MANAGERHOSTSSL": "false"
       },
       "dotnetRunMessages": true
     },

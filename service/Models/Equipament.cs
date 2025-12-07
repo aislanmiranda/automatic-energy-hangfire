@@ -2,7 +2,7 @@
 namespace service.Models;
 
 public class Equipament
-{    
+{
     public Guid Id { get; protected set; }
     public string Tag { get; protected set; } = string.Empty;
     public string Queue { get; protected set; } = string.Empty;
@@ -15,4 +15,9 @@ public class Equipament
 
     public virtual List<ScheduleTask>? Tasks { get; protected set; }
     public virtual List<Monitoring>? Monitorings { get; set; }
+
+    public void UpdateStateEquipament(int action)
+    {
+        this.OnOff = action;
+    }
 }
