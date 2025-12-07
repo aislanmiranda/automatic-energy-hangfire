@@ -1,5 +1,4 @@
 ﻿using AspNetCore.Scalar;
-using Hangfire;
 using Scalar.AspNetCore;
 using service;
 
@@ -34,11 +33,10 @@ app.UseScalar(options => {
     options.UseTheme(Theme.Default);
     options.RoutePrefix = "api-docs";
 });
-
+app.UseMiddleware<TokenCaptureMiddleware>();
 app.UseCors(corsPolicyName);
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-app.UseHangfireDashboard();
 
 app.Run();

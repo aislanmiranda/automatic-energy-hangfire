@@ -5,6 +5,8 @@ namespace service.Repository;
 
 public interface IEquipamentRepository
 {
-    Task<Equipament?> GetIdAsync(Guid equipament,
-        CancellationToken cancellationToken);
+    Task<Equipament> GetEquipamentByTopic(string topic,
+            CancellationToken cancellationToken);
+
+    Task<Equipament> UpdateEquipamentAsync(Equipament entity);
 }

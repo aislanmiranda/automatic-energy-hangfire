@@ -1,18 +1,19 @@
-﻿using Hangfire;
-using Hangfire.PostgreSql;
+﻿using System.Net.Http.Headers;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Quartz;
 using Quartz.Spi;
+using Refit;
 using service.Job;
+using service.Provider;
 using service.Queue;
 using service.Repository;
 using service.Repository.Context;
+using service.Services;
 
-namespace service
+namespace service;
+
+public static class DependencyInjectionInfra
 {
-	public static class DependencyInjectionInfra
-	{
         [Obsolete]
         public static void AddInfrastructure(
             this IServiceCollection services, IConfiguration configuration)
@@ -25,16 +26,15 @@ namespace service
 
             string connectionString = $"Host={HOST};Port={PORT};Database={DB};Username={USER};Password={PASS};Pooling=true;";
             //string connectionQuartz = $"Host=localhost;Port={PORT};Database=quartz;Username=postgres;Password=Quartz@1234;Pooling=true;";
-
+            string ManagerHost = Environment.GetEnvironmentVariable("MANAGERHOST")!;
+            string HasSSL = Environment.GetEnvironmentVariable("MANAGERHOSTSSL")!;
+            string prefix = HasSSL.Equals("false") ? "http" : "https";
             #if DEBUG
-            //connectionString = configuration.GetConnectionString("DefaultConnection")!;
+                    //connectionString = configuration.GetConnectionString("DefaultConnection")!;
             #endif
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(connectionString));
-
-            services.AddHangfire(config =>
-                config?.UsePostgreSqlStorage(connectionString));
 
             // Configura Quartz com persistência no PostgreSQL
             services.AddQuartz(q =>
@@ -74,14 +74,44 @@ namespace service
                 return scheduler;
             });
 
-            services.AddHangfireServer();
             services.AddSingleton<IRabbitMQService, RabbitMQService>();
+            services.AddHostedService(sp => (RabbitMQService)sp.GetRequiredService<IRabbitMQService>());
+
             services.AddTransient<ITaskService, TaskService>();
-            services.AddTransient<IEquipamentRepository, EquipamentRepository>();
-            services.AddTransient<IMonitoringRepository, MonitoringRepository>();
             services.AddTransient<ITaskRepository, TaskRepository>();
-            services.AddTransient<SendMessageJob>();
-        }
+            services.AddTransient<IMonitoringRepository, MonitoringRepository>();
+            services.AddTransient<IEquipamentRepository, EquipamentRepository>();
+            services.AddTransient<SendMessageQueueJob>();
+
+            services.AddMemoryCache();
+            services.AddTransient<ITokenProvider, TokenProvider>();
+            services.AddTransient<BearerTokenHandler>();
+
+            services.AddRefitClient<IAuthTokenService>()
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri($"{prefix}://{ManagerHost}"));
+
+            services.AddRefitClient<ISendStatusEquipament>()
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri($"{prefix}://{ManagerHost}"))
+                 .AddHttpMessageHandler<BearerTokenHandler>();
     }
 }
 
+public class BearerTokenHandler : DelegatingHandler
+{
+    private readonly ITokenProvider _scopeFactory;
+
+    public BearerTokenHandler(ITokenProvider scopeFactory)
+        => _scopeFactory = scopeFactory;   
+
+    protected override async Task<HttpResponseMessage> SendAsync(
+        HttpRequestMessage request,
+        CancellationToken cancellationToken)
+    {
+        var token = await _scopeFactory.GetTokenAsync(cancellationToken);
+
+        request.Headers.Authorization =
+            new AuthenticationHeaderValue("Bearer", token);
+
+        return await base.SendAsync(request, cancellationToken);
+    }
+}

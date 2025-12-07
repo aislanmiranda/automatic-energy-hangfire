@@ -7,5 +7,5 @@ public interface ITaskService
 {
     Task<Result<List<TaskRequest>>> CreateTaskNewAsync(List<TaskRequest> tasks, CancellationToken cancellationToken);
     Task<Result<string>> OnOffTaskAsync(TaskRequest request, CancellationToken cancellationToken);
-    Task<Result<string>> DeleteTaskAsync(string recurringJobId);
+    Task<Result<string>> DeleteTaskAsync(string recurringJobId);   
 }
