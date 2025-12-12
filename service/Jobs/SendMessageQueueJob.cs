@@ -12,15 +12,15 @@ public class SendMessageQueueJob : IJob
     private readonly IRabbitMQService _rabbitMqService;
     private readonly IMonitoringRepository _monitoringRepository;
     private readonly IEquipamentRepository _equipamentRepository;
-    private readonly ISendStatusEquipament _sendStatusEquipament;
+    private readonly ISendStatusNotification _sendStatusNotification;
 
     public SendMessageQueueJob(IRabbitMQService rabbitMqService, IMonitoringRepository monitoringRepository,
-        IEquipamentRepository equipamentRepository, ISendStatusEquipament sendStatusEquipament)
+        IEquipamentRepository equipamentRepository, ISendStatusNotification sendStatusNotification)
     {
         _rabbitMqService = rabbitMqService;
         _monitoringRepository = monitoringRepository;
         _equipamentRepository = equipamentRepository;
-        _sendStatusEquipament = sendStatusEquipament;
+        _sendStatusNotification = sendStatusNotification;
     }
 
     public async Task Execute(IJobExecutionContext context)
@@ -53,7 +53,7 @@ public class SendMessageQueueJob : IJob
             await _equipamentRepository.UpdateEquipamentAsync(equipament);
 
             //notifica o manager a mudança de estado
-            await _sendStatusEquipament.SendStatusEquipamentAsync(request);
+            await _sendStatusNotification.SendStatusEquipamentAsync(request);
         }
         catch (Exception ex)
         {

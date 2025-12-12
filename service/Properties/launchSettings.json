@@ -25,7 +25,7 @@
         "RBUSER": "automatic",
         "RBPASS": "{R4qgSryBycagWfK*-h#",
         "MANAGERHOST": "localhost:7000",
-        "MANAGERHOSTSSL": "false"
+        "MANAGERHOSTSSL": "true"
       },
       "dotnetRunMessages": true
     },

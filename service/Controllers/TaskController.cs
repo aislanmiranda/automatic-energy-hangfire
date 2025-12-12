@@ -47,6 +47,17 @@ public class TaskController : ControllerBase
         return StatusCode(response.Result.StatusCode, new { data = response.Result.Data });
     }
 
+    [HttpGet("monitoring")]
+    public IActionResult MonitoringTask([FromQuery] int timeMinute, CancellationToken cancellationToken)
+    {
+        var response = _taskService.ScheduleStateMonitorTaskAsync(timeMinute, cancellationToken);
+
+        if (!response.Result.Success)
+            return StatusCode(response.Result.StatusCode, new { error = response.Result.Error });
+
+        return StatusCode(response.Result.StatusCode, new { data = response.Result.Data });
+    }
+
     [HttpDelete("delete")]
     public IActionResult DeleteTask([FromQuery] string recurringJobId)
     {

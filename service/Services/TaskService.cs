@@ -1,4 +1,5 @@
-﻿using Quartz;
+﻿using System.Threading.Tasks;
+using Quartz;
 using service.Dto;
 using service.Queue;
 using Service.Dto;
@@ -83,6 +84,40 @@ public class TaskService : ITaskService
         catch (Exception ex)
         {
             return Result<string>.Fail($"Erro ao executar OnOffTask: {ex.Message}");
+        }
+    }
+
+    public async Task<Result<string>> ScheduleStateMonitorTaskAsync(int timeMinute, CancellationToken cancellationToken)
+    {
+        try
+        {
+            string TASK_JOB = "monitor-equipament-state-job";
+            var jobKey = new JobKey(TASK_JOB);
+
+            await _scheduler.DeleteJob(jobKey);
+
+            string MESSAGE_RESULT = "State monitor task scheduled to run every 5 minutes.";
+
+            // Cria um job recorrente
+            var job = JobBuilder.Create<MonitoringQueueJob>()
+                .WithIdentity(TASK_JOB)
+                .Build();
+
+            // Trigger CRON para rodar de 5 em 5 minutos
+            var trigger = TriggerBuilder.Create()
+                .WithIdentity("monitor-equipament-state-trigger")
+                .WithCronSchedule($"0 */{timeMinute} * * * ?") // A cada 5 minutos
+                .StartNow()
+                .Build();
+
+            // Agenda o job recorrente (só agenda 1x)
+            await _scheduler.ScheduleJob(job, trigger, cancellationToken);
+
+            return Result<string>.Ok(MESSAGE_RESULT);
+        }
+        catch (Exception ex)
+        {
+            return Result<string>.Fail($"Erro ao agendar monitor: {ex.Message}");
         }
     }
 

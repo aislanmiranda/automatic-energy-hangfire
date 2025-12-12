@@ -12,6 +12,11 @@ namespace service.Repository
         public EquipamentRepository(AppDbContext context)
             => _context = context;
 
+        public async Task<List<Equipament>> GetEquipaments(CancellationToken cancellationToken)
+            => await _context
+                .Set<Equipament>()
+                .ToListAsync(cancellationToken);
+
         public async Task<Equipament> GetEquipamentByTopic(string topic,
             CancellationToken cancellationToken)
         {
@@ -24,9 +29,9 @@ namespace service.Repository
 
         public async Task<Equipament> UpdateEquipamentAsync(Equipament entity)
         {
-            var model = _context.Update(entity).Entity;
+            var equipament = _context.Update(entity).Entity;
             await _context.SaveChangesAsync();
-            return model;
+            return equipament;
         }
     }
 }

@@ -28,7 +28,7 @@ public class RabbitMQService : IRabbitMQService, IHostedService, IDisposable
 
     private readonly IList<string> _topicsToListen = new List<string>
     {
-        "LAST_STATE"
+        "LAST_STATE_2"
     };
 
     private readonly Channel<MqttApplicationMessageReceivedEventArgs> _messageQueue =
@@ -283,4 +283,27 @@ public class RabbitMQService : IRabbitMQService, IHostedService, IDisposable
             .Distinct()
             .ToList();
     }
+
+    public async Task<List<string>> ListActiveTopicsAsync(IEnumerable<string>? ignoreList = null)
+    {
+        ignoreList ??= Enumerable.Empty<string>();
+
+        using var client = new HttpClient();
+
+        var basicAuth = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{_user}:{_pass}"));
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", basicAuth);
+
+        var url = $"http://{_host}:15672/api/exchanges/%2F/amq.topic/bindings/source";
+        var json = await client.GetStringAsync(url);
+
+        var items = JsonSerializer.Deserialize<List<RabbitBindingResponse>>(json)!;
+
+        return items
+            .Where(b => !string.IsNullOrWhiteSpace(b.routing_key))
+            .Select(b => b.routing_key)
+            .Where(topic => !ignoreList.Any(prefix => topic.StartsWith(prefix)))
+            .Distinct()
+            .ToList();
+    }
+
 }

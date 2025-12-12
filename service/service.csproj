@@ -37,6 +37,7 @@
     <None Remove="Models\" />
     <None Remove="Repository\Configs\" />
     <None Remove="Provider\" />
+    <None Remove="Jobs\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Queue\" />
@@ -47,5 +48,6 @@
     <Folder Include="Models\" />
     <Folder Include="Repository\Configs\" />
     <Folder Include="Provider\" />
+    <Folder Include="Jobs\" />
   </ItemGroup>
 </Project>
