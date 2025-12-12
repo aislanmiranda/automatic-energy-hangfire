@@ -11,6 +11,8 @@ public class Equipament
     public Guid CustomerId { get; protected set; }
 
     public int OnOff { get; protected set; }
+    public int? State { get; protected set; }
+    public DateTime? LastStateDate { get; protected set; }
     public int Active { get; protected set; }
 
     public virtual List<ScheduleTask>? Tasks { get; protected set; }
@@ -19,5 +21,11 @@ public class Equipament
     public void UpdateStateEquipament(int action)
     {
         this.OnOff = action;
+    }
+
+    public void UpdateMonitoringEquipament(int state, DateTime? lastState)
+    {
+        this.State = state;
+        this.LastStateDate = lastState;
     }
 }

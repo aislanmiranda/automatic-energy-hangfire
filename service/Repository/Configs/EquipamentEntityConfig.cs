@@ -45,8 +45,22 @@ namespace service.Repository.Configs
                 .HasComment("Para indicar se o equipamento está ligado ou desligado")
                 .IsRequired();
             builder
+              .Property(p => p.State)
+              .HasColumnOrder(5)
+              .HasColumnName("State")
+              .HasColumnType("smallint")
+              .HasComment("Para indicar se a fila do equipamento está ativa naquela momento")
+              .HasDefaultValue(null);
+            builder
+                .Property(p => p.LastStateDate)
+                .HasColumnOrder(6)
+                .HasColumnName("LastStateDate")
+                .HasColumnType("timestamptz") // timestamp with time zone
+                .HasComment("Data de criação no fuso horário do Brasil")
+                .IsRequired();
+            builder
                 .Property(p => p.Active)
-                .HasColumnOrder(5)
+                .HasColumnOrder(7)
                 .HasColumnName("Active")
                 .HasColumnType("smallint")
                 .HasComment("Para indicar se o equipamento está o o registro ativo")

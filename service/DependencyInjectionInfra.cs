@@ -25,13 +25,9 @@ public static class DependencyInjectionInfra
             var PASS = Environment.GetEnvironmentVariable("DBPASS");
 
             string connectionString = $"Host={HOST};Port={PORT};Database={DB};Username={USER};Password={PASS};Pooling=true;";
-            //string connectionQuartz = $"Host=localhost;Port={PORT};Database=quartz;Username=postgres;Password=Quartz@1234;Pooling=true;";
             string ManagerHost = Environment.GetEnvironmentVariable("MANAGERHOST")!;
             string HasSSL = Environment.GetEnvironmentVariable("MANAGERHOSTSSL")!;
             string prefix = HasSSL.Equals("false") ? "http" : "https";
-            #if DEBUG
-                    //connectionString = configuration.GetConnectionString("DefaultConnection")!;
-            #endif
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(connectionString));
@@ -82,6 +78,7 @@ public static class DependencyInjectionInfra
             services.AddTransient<IMonitoringRepository, MonitoringRepository>();
             services.AddTransient<IEquipamentRepository, EquipamentRepository>();
             services.AddTransient<SendMessageQueueJob>();
+            services.AddTransient<MonitoringQueueJob>();
 
             services.AddMemoryCache();
             services.AddTransient<ITokenProvider, TokenProvider>();
@@ -90,7 +87,7 @@ public static class DependencyInjectionInfra
             services.AddRefitClient<IAuthTokenService>()
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri($"{prefix}://{ManagerHost}"));
 
-            services.AddRefitClient<ISendStatusEquipament>()
+            services.AddRefitClient<ISendStatusNotification>()
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri($"{prefix}://{ManagerHost}"))
                  .AddHttpMessageHandler<BearerTokenHandler>();
     }
