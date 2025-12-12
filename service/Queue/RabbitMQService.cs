@@ -28,7 +28,7 @@ public class RabbitMQService : IRabbitMQService, IHostedService, IDisposable
 
     private readonly IList<string> _topicsToListen = new List<string>
     {
-        "LAST_STATE_2"
+        "LAST_STATE"
     };
 
     private readonly Channel<MqttApplicationMessageReceivedEventArgs> _messageQueue =
