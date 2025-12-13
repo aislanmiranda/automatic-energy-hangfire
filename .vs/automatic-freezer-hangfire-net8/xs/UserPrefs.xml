@@ -1,44 +1,26 @@
 ﻿<Properties StartupConfiguration="{2B7BC356-F101-439E-87A7-D38E85324D43}|http">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workbench ActiveDocument="service/Jobs/MonitoringQueueJob.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="service/Queue/RabbitMQService.cs">
     <Files>
-      <File FileName="service/Services/TaskService.cs" Line="109" Column="52" />
-      <File FileName="service/Repository/MonitoringRepository.cs" />
-      <File FileName="service/DependencyInjectionInfra.cs" />
-      <File FileName="service/Properties/launchSettings.json" />
-      <File FileName="service/Queue/RabbitMQService.cs" Line="308" Column="1" />
-      <File FileName="service/Queue/IRabbitMQService.cs" Line="11" Column="6" />
-      <File FileName="service/Controllers/TaskController.cs" />
-      <File FileName="service/Services/ITaskService.cs" />
-      <File FileName="service/Repository/ITaskRepository.cs" />
-      <File FileName="service/Repository/EquipamentoRepository.cs" />
-      <File FileName="service/Dto/LastStateResponse.cs" />
-      <File FileName="service/Dto/RequestJob.cs" />
-      <File FileName="service/Models/Equipament.cs" />
-      <File FileName="service/TokenCaptureMiddleware.cs" />
-      <File FileName="service/Program.cs" />
-      <File FileName="service/Jobs/MonitoringQueueJob.cs" Line="50" Column="24" />
-      <File FileName="service/Repository/IEquipamentRepository.cs" />
-      <File FileName="service/Jobs/SendMessageQueueJob.cs" />
-      <File FileName="service/Dto/EquipamentStateResponse.cs" />
-      <File FileName="service/Dto/CustomerEquipamentStateResponse.cs" />
-      <File FileName="service/Repository/Configs/MonitoringEntityConfig.cs" />
-      <File FileName="service/Repository/Configs/EquipamentEntityConfig.cs" />
+      <File FileName="service/Jobs/SendMessageQueueJob.cs" Line="56" Column="13" />
+      <File FileName="service/Services/ISendStatusEquipament.cs" Line="13" Column="84" />
+      <File FileName="service/Program.cs" Line="11" Column="1" />
+      <File FileName="service/DependencyInjectionInfra.cs" Line="90" Column="60" />
+      <File FileName="service/Properties/launchSettings.json" Line="26" Column="40" />
+      <File FileName="service/Services/TaskService.cs" Line="9" Column="39" />
+      <File FileName="service/Services/ITaskService.cs" Line="11" Column="1" />
+      <File FileName="service/Controllers/TaskController.cs" Line="61" Column="1" />
+      <File FileName="service/Queue/RabbitMQService.cs" Line="31" Column="20" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="automatic-freezer-hangfire-net8">
-            <Node name="service">
-              <Node name="Jobs" expanded="True">
-                <Node name="MonitoringQueueJob.cs" selected="True" />
-              </Node>
+          <Node name="automatic-freezer-hangfire-net8" expanded="True">
+            <Node name="service" expanded="True">
+              <Node name="Controllers" expanded="True" />
               <Node name="Models" expanded="True" />
+              <Node name="Properties" expanded="True" />
+              <Node name="Provider" expanded="True" />
               <Node name="Queue" expanded="True" />
               <Node name="Services" expanded="True" />
             </Node>
@@ -47,5 +29,10 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.ItemProperties.service PreferredExecutionTarget="/Applications/Google Chrome.app" />
 </Properties>
