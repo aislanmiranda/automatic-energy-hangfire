@@ -1,16 +1,13 @@
 ﻿using Refit;
 using service.Dto;
 
+namespace service.Services;
 
-namespace service.Services
+public interface ISendStatusNotification
 {
-	public interface ISendStatusNotification
-	{
-        [Post("/notification/statusequipament")]
-        Task SendStatusEquipamentAsync([Body] TaskRequest request);
+    [Post("/notification/statusequipament")]
+    Task SendStatusEquipamentAsync([Body] TaskRequest request);
 
-        [Post("/notification/statusmonitoring")]
-        Task StatusMonitoringEquipament([Body] List<FreezerMonitoringStatusResponse> request);
-    }
+    [Post("/notification/statusmonitoring")]
+    Task StatusMonitoringEquipament([Body] List<FreezerMonitoringStatusResponse> request);
 }
-

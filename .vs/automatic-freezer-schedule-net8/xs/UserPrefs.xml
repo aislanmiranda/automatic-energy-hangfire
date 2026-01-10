@@ -1,0 +1,40 @@
+﻿<Properties StartupConfiguration="{2B7BC356-F101-439E-87A7-D38E85324D43}|http">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench ActiveDocument="service/Services/ISendStatusNotification.cs">
+    <Files>
+      <File FileName="service/Properties/launchSettings.json" Line="1" Column="1" />
+      <File FileName="service/Jobs/MonitoringQueueJob.cs" Line="52" Column="51" />
+      <File FileName="service/Services/ISendStatusNotification.cs" Line="10" Column="14" />
+      <File FileName="service/Dto/EquipamentStateResponse.cs" Line="8" Column="26" />
+      <File FileName="service/Controllers/TaskController.cs" Line="50" Column="25" />
+      <File FileName="service/Services/ITaskService.cs" Line="10" Column="26" />
+      <File FileName="service/Services/TaskService.cs" Line="90" Column="121" />
+      <File FileName="service/Jobs/SendMessageQueueJob.cs" Line="56" Column="51" />
+      <File FileName="service/Queue/RabbitMQService.cs" Line="31" Column="18" />
+      <File FileName="service/Dto/CustomerEquipamentStateResponse.cs" Line="9" Column="2" />
+      <File FileName="service/Models/Equipament.cs" Line="26" Column="17" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="automatic-freezer-schedule-net8">
+            <Node name="service">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Properties" expanded="True" />
+              <Node name="Services">
+                <Node name="ISendStatusNotification.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.service PreferredExecutionTarget="/Applications/Google Chrome.app" />
+</Properties>

@@ -28,7 +28,7 @@ public class RabbitMQService : IRabbitMQService, IHostedService, IDisposable
 
     private readonly IList<string> _topicsToListen = new List<string>
     {
-        "LAST_STATE"
+        "$share/backend/LAST_STATE"
     };
 
     private readonly Channel<MqttApplicationMessageReceivedEventArgs> _messageQueue =
@@ -85,7 +85,7 @@ public class RabbitMQService : IRabbitMQService, IHostedService, IDisposable
             .WithProtocolVersion(MqttProtocolVersion.V311)  // RabbitMQ exige 3.1.1
             .WithCredentials(_user, _pass)
             .WithKeepAlivePeriod(TimeSpan.FromSeconds(30))
-            .WithCleanSession()
+            .WithCleanSession(true)
             .Build();
     }
 

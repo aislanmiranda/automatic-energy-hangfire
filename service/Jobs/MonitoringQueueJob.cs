@@ -68,6 +68,7 @@ public class MonitoringQueueJob : IJob
                         {
                             EquipamentId = e.Id,
                             State = e.State,
+                            OnOff = e.OnOff,
                             LastStateDate = e.LastStateDate
                         }).ToList()
                     })

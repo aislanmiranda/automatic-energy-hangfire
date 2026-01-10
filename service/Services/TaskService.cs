@@ -96,7 +96,7 @@ public class TaskService : ITaskService
 
             await _scheduler.DeleteJob(jobKey);
 
-            string MESSAGE_RESULT = "State monitor task scheduled to run every 5 minutes.";
+            string MESSAGE_RESULT = $"State monitor task scheduled to run every {timeMinute} minutes.";
 
             // Cria um job recorrente
             var job = JobBuilder.Create<MonitoringQueueJob>()
